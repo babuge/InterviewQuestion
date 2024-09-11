@@ -4,9 +4,33 @@ win32-msvc {
 }
 
 
+DESTDIR = $${OUTDIR}
 
-
-
+if(win32){
+    if (msvc | mingw){
+        LibPath = $$absolute_path($${OUTLIB}/*.dll)
+        FileList = $$files($${LibPath})
+        FileList = $$replace(FileList, '$${OUTLIB}/', '')
+        FileList = $$replace(FileList, '\.dll', '')
+        dllList = $$join(FileList, " -l", -l)
+        for(var, $$list($${dllList})) {
+            item = $${var}
+            LIBS += -L$${OUTLIB}/ $${item}
+        }
+    }
+} else{
+    unix:!mac{
+        LibPath = $$absolute_path($${OUTLIB}/*.so)
+        FileList = $$files($${LibPath})
+        FileList = $$replace(FileList, '$${OUTLIB}/', '')
+        FileList = $$replace(FileList, '\.so', '')
+        dllList = $$join(FileList, " -l", -l)
+        for(var, $$list($${dllList})) {
+            item = $${var}
+            LIBS += -L$${OUTLIB}/ $${item}
+        }
+    }
+}
 
 defineReplace(headersCopyFunc) {
     var1 = $$1
@@ -35,3 +59,4 @@ defineReplace(headersCopyFunc) {
 
     return (true)
 }
+

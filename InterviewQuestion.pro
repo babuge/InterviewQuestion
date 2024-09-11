@@ -3,7 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += Modules \
     App
 
-#App.depends = Modules/TestModule
+App.depends = Modules
 
 
 OTHER_FILES += \

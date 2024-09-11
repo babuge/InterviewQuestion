@@ -13,5 +13,5 @@ public:
 
     int FindSubSetIndex(const QVector<int> &vct, const QVector<int> &vctSub) const;
 
-    bool CycleString(std::string str, int s32Step) const;
+    std::string CycleString(std::string &str, int s32Step) const;
 };

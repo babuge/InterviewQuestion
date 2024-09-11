@@ -4,6 +4,9 @@ InterviewQuestion::InterviewQuestion() {}
 
 int InterviewQuestion::GetSecond(const QVector<int> &vct) const
 {
+    if (vct.size() <= 1) {
+        return -1;
+    }
     int second = std::numeric_limits<int>::min();
     int max    = std::numeric_limits<int>::min();
 
@@ -33,13 +36,17 @@ int InterviewQuestion::FindSubSetIndex(const QVector<int> &vct, const QVector<in
             if (index == -1) {
                 if (j == 0 && vct.at(i) == vctSub.at(j)) {
                     index = i;
+                    if (j == vctSub.size() - 1) {
+                        return index;
+                    }
                 }
             }
             else {
-                if ((i + j) >= vct.size() && j != (vctSub.size() - 1)) {
+                if ((i + j) >= vct.size()) {
                     index = -1;
                     return index;
                 }
+
                 if (vct.at(i + j) != vctSub.at(j)) {
                     index = -1;
                     break;
@@ -53,13 +60,13 @@ int InterviewQuestion::FindSubSetIndex(const QVector<int> &vct, const QVector<in
     return index;
 }
 
-std::string InterviewQuestion::CycleString(std::string str, int s32Step) const
+std::string InterviewQuestion::CycleString(std::string &str, int s32Step) const
 {
     int len = str.size();
     if (len <= 1) {
         return str;
     }
-    s32Step = s32Step / len;
+    s32Step = s32Step % len;
     if (s32Step <= 0) {
         return str;
     }
