@@ -1,11 +1,9 @@
-# build
-./build
-./install
-./**/Makefile
-*.usr
-*.qmake
+# project
+/build
+/install
+/**/Makefile
+/*.qmake
+/*.user
 
 # git
-./.git
-
-
+/.git
