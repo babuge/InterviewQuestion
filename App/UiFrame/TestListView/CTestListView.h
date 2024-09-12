@@ -6,10 +6,12 @@ class CTestStandardItemModel;
 class CTestStyledItemDelegate;
 class CTestListView : public QListView
 {
+    Q_OBJECT
 public:
     explicit CTestListView(QWidget *parent = nullptr);
+    virtual ~CTestListView();
 
-    void RegisterSignal(QObject *sender, char *signal);
+    void RegisterSignal(const QObject *sender, const char *signal);
     void init();
 private Q_SLOTS:
     void Slot_UpdateTestInfo(const QVariant &);

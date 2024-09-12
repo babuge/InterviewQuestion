@@ -1,7 +1,9 @@
 #include "MainWindow.h"
 #include "CTestListView.h"
-#include "CommonTestModule.h"
+#include "CommonGtest,h"
 #include "ui_MainWindow.h"
+
+#include <QDebug>
 
 class MainWindowPrivate
 {
@@ -71,7 +73,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::RegisterSignal(QObject *sender, char *signal)
+void MainWindow::RegisterSignal(const QObject *sender, const char *signal)
 {
     Q_D(MainWindow);
     if (d->m_pTestListView != nullptr) {
@@ -81,5 +83,11 @@ void MainWindow::RegisterSignal(QObject *sender, char *signal)
 
 void MainWindow::Slot_ClickedTestBtn()
 {
-    RUN_ALL_TESTS();
+    int ret = RUN_ALL_TESTS();
+    if (ret == 0) {
+        qDebug() << "RUN_ALL_TESTS success!";
+    }
+    else {
+        qDebug() << "RUN_ALL_TESTS fail!";
+    }
 }

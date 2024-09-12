@@ -13,12 +13,11 @@ class MainWindowPrivate;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void RegisterSignal(QObject *sender, char *signal);
+    void RegisterSignal(const QObject *sender, const char *signal);
 
 private Q_SLOTS:
     void Slot_ClickedTestBtn();

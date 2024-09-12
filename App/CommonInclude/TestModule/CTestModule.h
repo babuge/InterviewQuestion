@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CTestModule_global.h"
+#include "CommonGtest.h"
 #include "CommonTestModule.h"
 #include <QObject>
 

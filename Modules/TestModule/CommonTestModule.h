@@ -1,13 +1,9 @@
 #pragma once
 
-#include "gtest/gtest.h"
 #include <QMetaType>
 #include <QStringList>
 
-using ::testing::Environment;
-using ::testing::Test;
-
-struct TestInfo
+struct CustomTestInfo
 {
     QString itemName;
     QString indexName;
@@ -19,4 +15,4 @@ struct TestInfo
     QList<bool> btnSelected;
 };
 
-Q_DECLARE_METATYPE(TestInfo)
+Q_DECLARE_METATYPE(CustomTestInfo)

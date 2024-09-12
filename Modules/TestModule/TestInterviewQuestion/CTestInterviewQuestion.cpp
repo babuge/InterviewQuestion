@@ -1,4 +1,5 @@
 #include "CTestInterviewQuestion.h"
+#include "CTestModule.h"
 #include <QDateTime>
 #include <QDebug>
 
@@ -9,24 +10,32 @@ QString CTestInterviewQuestion::GetCurDateTime() const
     return QString(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz"));
 }
 
+QString CTestInterviewQuestion::ListToString(const QVector<int> &vct) const
+{
+    QString ret;
+    foreach (const int &i, vct) {
+        ret.append(" " + QString::number(i));
+    }
+    return ret;
+}
+
+void CTestInterviewQuestion::UpdateInfo()
+{
+    if (g_pTestModule != nullptr) {
+        emit g_pTestModule->Signal_UpdateTestInfo(QVariant::fromValue<CustomTestInfo>(m_Info));
+    }
+}
+
 void CTestInterviewQuestion::SetUp()
 {
-    qDebug() << __FUNCTION__;
-}
-
-void CTestInterviewQuestion::TearDown()
-{
-    qDebug() << __FUNCTION__;
-}
-
-TEST_F(CTestInterviewQuestion, GetSecond)
-{
-    struct StruTestItem
-    {
-        QVector<int> in;
-        int result;
-    };
-    const StruTestItem arrTestItem[] = {
+    m_Info.itemName  = "InterviewQuestion";
+    m_Info.indexName = "";
+    m_Info.isFold    = false;
+    m_Info.date      = GetCurDateTime();
+    m_Info.rowName << QString("SetUp");
+    m_Info.rowData << QString("InterviewQuestion");
+    UpdateInfo();
+    m_Case1Data = {
         { {}, -1 },
         { { 1 }, -1 },
         { { 5, 5, 5, 5, 5, 2 }, 5 },
@@ -53,21 +62,8 @@ TEST_F(CTestInterviewQuestion, GetSecond)
             5, 4, 3, 3, 4, 5, 4, 3, 3, 4, 5, 4, 3, 3, 4, 5, 4, 3, 3, 4, 5, 4, 3, 3, 4, 5 },
           5 },
     };
-    for (quint64 i = 0; i < (sizeof(arrTestItem) / sizeof(arrTestItem[0])); ++i) {
-        const StruTestItem &item = arrTestItem[i];
-        ASSERT_EQ(p.GetSecond(item.in), item.result);
-    }
-}
 
-TEST_F(CTestInterviewQuestion, FindSubSetIndex)
-{
-    struct StruTestItem
-    {
-        QVector<int> first;
-        QVector<int> second;
-        int result;
-    };
-    const StruTestItem arrTestItem[] = {
+    m_Case2Data = {
         { {}, {}, 0 },
         { {}, { 7 }, -1 },
         { { 7 }, { 7 }, 0 },
@@ -80,21 +76,8 @@ TEST_F(CTestInterviewQuestion, FindSubSetIndex)
         { { 3, 7, 4, 1, 3, 7, 4, 1, 6 }, { 6 }, 8 },
         { { 6, 7, 4, 1, 3, 7, 4, 1, 6 }, { 6 }, 0 },
     };
-    for (quint64 i = 0; i < (sizeof(arrTestItem) / sizeof(arrTestItem[0])); ++i) {
-        const StruTestItem &item = arrTestItem[i];
-        ASSERT_EQ(p.FindSubSetIndex(item.first, item.second), item.result);
-    }
-}
 
-TEST_F(CTestInterviewQuestion, CycleString)
-{
-    struct StruTestItem
-    {
-        std::string first;
-        int second;
-        std::string result;
-    };
-    const StruTestItem arrTestItem[] = {
+    m_Case3Data = {
         { "", 1, "" },
         { "1", 1, "1" },
         { "12", 1, "21" },
@@ -159,8 +142,158 @@ TEST_F(CTestInterviewQuestion, CycleString)
           "abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123abcdefg1"
           "23abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123abcdefg123" },
     };
-    for (quint64 i = 0; i < (sizeof(arrTestItem) / sizeof(arrTestItem[0])); ++i) {
-        StruTestItem item = arrTestItem[i];
-        ASSERT_EQ(p.CycleString(item.first, item.second), item.result);
+}
+
+void CTestInterviewQuestion::TearDown()
+{
+    qDebug() << "CTestInterviewQuestion::TearDown";
+
+    m_Info.itemName  = "InterviewQuestion";
+    m_Info.indexName = "";
+    m_Info.isFold    = false;
+    m_Info.date      = GetCurDateTime();
+    m_Info.rowName << QString("TearDown");
+    m_Info.rowData << QString("InterviewQuestion");
+    UpdateInfo();
+    m_Case1Data.clear();
+    m_Case1Data.squeeze();
+    m_Case2Data.clear();
+    m_Case2Data.squeeze();
+    m_Case3Data.clear();
+    m_Case3Data.squeeze();
+}
+
+TEST_F(CTestInterviewQuestion, GetSecond)
+{
+    m_Info.indexName = "GetSecond";
+    m_Info.date      = GetCurDateTime();
+    m_Info.rowName << QString("runing case");
+    m_Info.rowData << QString("all Part");
+    UpdateInfo();
+    struct ResultItem
+    {
+        const StruInVctOutIntItem &Input;
+        int retReal;
+    };
+
+    auto IsSecond = [=](const ResultItem &result) {
+        QString str = ListToString(result.Input.in) + ",ret:" + QString::number(result.retReal)
+                      + ",Expected:" + QString::number(result.Input.result);
+        if (result.retReal == result.Input.result) {
+            str = "SuccessResult: in:" + str;
+            return testing::AssertionSuccess() << str.toStdString();
+        }
+        else {
+            str = "FaulureResult: in:" + str;
+            return testing::AssertionFailure() << str.toStdString();
+        }
+    };
+    for (int i = 0; i < m_Case1Data.size(); ++i) {
+        ResultItem resultItem = { m_Case1Data.at(i), 0 };
+        resultItem.retReal    = p.GetSecond(resultItem.Input.in);
+        ::testing::AssertionResult AssertResult(IsSecond(resultItem));
+        EXPECT_TRUE(AssertResult);
+
+        m_Info.date = GetCurDateTime();
+        m_Info.rowName << QString("Part_%1").arg(i + 1);
+        m_Info.rowData << QString(AssertResult.message());
+        UpdateInfo();
     }
+
+    m_Info.date = GetCurDateTime();
+    m_Info.rowName << QString("runing end");
+    m_Info.rowData << QString("all case");
+    UpdateInfo();
+}
+
+TEST_F(CTestInterviewQuestion, FindSubSetIndex)
+{
+    m_Info.indexName = "FindSubSetIndex";
+    m_Info.date      = GetCurDateTime();
+    m_Info.rowName << QString("runing case");
+    m_Info.rowData << QString("all Part");
+    UpdateInfo();
+
+    struct ResultItem
+    {
+        const StruInVctVctOutIntItem &Input;
+        int retReal;
+    };
+
+    auto IsFindSubSetIndex = [=](const ResultItem &result) {
+        QString str = "firstIn:" + ListToString(result.Input.first)
+                      + "secondIn:" + ListToString(result.Input.second)
+                      + ",ret:" + QString::number(result.retReal)
+                      + ",Expected:" + QString::number(result.Input.result);
+        if (result.retReal == result.Input.result) {
+            str = "SuccessResult: in:" + str;
+            return testing::AssertionSuccess() << str.toStdString();
+        }
+        else {
+            str = "FaulureResult: in:" + str;
+            return testing::AssertionFailure() << str.toStdString();
+        }
+    };
+    for (int i = 0; i < m_Case2Data.size(); ++i) {
+        ResultItem resultItem = { m_Case2Data.at(i), -1 };
+        resultItem.retReal    = p.FindSubSetIndex(resultItem.Input.first, resultItem.Input.second);
+        ::testing::AssertionResult AssertResult(IsFindSubSetIndex(resultItem));
+        EXPECT_TRUE(AssertResult);
+
+        m_Info.date = GetCurDateTime();
+        m_Info.rowName << QString("Part_%1").arg(i + 1);
+        m_Info.rowData << QString(AssertResult.message());
+        UpdateInfo();
+    }
+
+    m_Info.date = GetCurDateTime();
+    m_Info.rowName << QString("runing end");
+    m_Info.rowData << QString("all case");
+    UpdateInfo();
+}
+
+TEST_F(CTestInterviewQuestion, CycleString)
+{
+    m_Info.indexName = "CycleString";
+    m_Info.date      = GetCurDateTime();
+    m_Info.rowName << QString("runing case");
+    m_Info.rowData << QString("all Part");
+    UpdateInfo();
+    struct ResultItem
+    {
+        StruInStringIntOutStringItem Input;
+        std::string retReal;
+    };
+
+    auto IsCycleString = [=](const ResultItem &result) {
+        QString str = "firstIn:" + QString::fromStdString(result.Input.first)
+                      + "secondIn:" + QString::number(result.Input.second)
+                      + ",ret:" + QString::fromStdString(result.retReal)
+                      + ",Expected:" + QString::fromStdString(result.Input.result);
+        if (result.retReal == result.Input.result) {
+            str = "SuccessResult: in:" + str;
+            return testing::AssertionSuccess() << str.toStdString();
+        }
+        else {
+            str = "FaulureResult: in:" + str;
+            return testing::AssertionFailure() << str.toStdString();
+        }
+    };
+
+    for (int i = 0; i < m_Case3Data.size(); ++i) {
+        ResultItem resultItem = { m_Case3Data.at(i), "" };
+        resultItem.retReal    = p.CycleString(resultItem.Input.first, resultItem.Input.second);
+        ::testing::AssertionResult AssertResult(IsCycleString(resultItem));
+        EXPECT_TRUE(AssertResult);
+
+        m_Info.date = GetCurDateTime();
+        m_Info.rowName << QString("Part_%1").arg(i + 1);
+        m_Info.rowData << QString(AssertResult.message());
+        UpdateInfo();
+    }
+
+    m_Info.date = GetCurDateTime();
+    m_Info.rowName << QString("runing end");
+    m_Info.rowData << QString("all case");
+    UpdateInfo();
 }

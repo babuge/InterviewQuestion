@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     if (g_pTestModule) {
         testing::AddGlobalTestEnvironment(g_pTestModule);
+        w.RegisterSignal(g_pTestModule, SIGNAL(Signal_UpdateTestInfo(const QVariant &)));
     }
     w.show();
     return a.exec();
