@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CommonGtest.h"
 #include "CommonTestModule.h"
 #include <QDebug>
 #include <QObject>

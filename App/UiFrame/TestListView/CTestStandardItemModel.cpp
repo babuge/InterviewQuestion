@@ -4,7 +4,7 @@ CTestStandardItemModel::CTestStandardItemModel(QObject *parent)
     : QStandardItemModel{ parent }
 {
 }
-
+CTestStandardItemModel::~CTestStandardItemModel() {}
 QVariant CTestStandardItemModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole) {

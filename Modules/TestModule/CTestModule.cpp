@@ -79,3 +79,9 @@ void CTestModule::TearDown()
     info.indexName = "TearDown";
     emit this->Signal_UpdateTestInfo(QVariant::fromValue<CustomTestInfo>(info));
 }
+
+void CTestModule::Slot_RunAllTest()
+{
+    int i = RUN_ALL_TESTS();
+    qDebug() << (i == 0 ? "success" : "failed");
+}

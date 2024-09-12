@@ -3,4 +3,5 @@ TEMPLATE=subdirs
 SUBDIRS += InterviewQuestion \
     TestModule
 
-TestModule.depends = InterviewQuestion
+App.depends += TestModule
+TestModule.depends += InterviewQuestion

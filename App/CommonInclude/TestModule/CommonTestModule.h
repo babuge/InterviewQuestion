@@ -1,7 +1,15 @@
 #pragma once
 
+#include "gtest/gtest.h"
 #include <QMetaType>
 #include <QStringList>
+using ::testing::EmptyTestEventListener;
+using ::testing::Environment;
+using ::testing::Test;
+using ::testing::TestCase;
+using ::testing::TestInfo;
+using ::testing::TestPartResult;
+using ::testing::UnitTest;
 
 struct CustomTestInfo
 {

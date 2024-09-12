@@ -142,3 +142,5 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
         painter->restore();
     }
 }
+
+void CTestStyledItemDelegate::on_but_clicked(QPoint mousePoint, const QModelIndex &index) {}

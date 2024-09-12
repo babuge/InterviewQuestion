@@ -19,6 +19,8 @@ public:
 
     void RegisterSignal(const QObject *sender, const char *signal);
 
+Q_SIGNALS:
+    void Signale_RunAllTest();
 private Q_SLOTS:
     void Slot_ClickedTestBtn();
 

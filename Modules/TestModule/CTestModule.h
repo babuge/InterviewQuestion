@@ -1,12 +1,11 @@
 #pragma once
 
 #include "CTestModule_global.h"
-#include "CommonGtest.h"
 #include "CommonTestModule.h"
 #include <QObject>
 
 class CTestModulePrivate;
-class CTESTMODULE_EXPORT CTestModule : public QObject, public Environment
+class TESTMODULE_EXPORT CTestModule : public QObject, public Environment
 {
     Q_OBJECT
 public:
@@ -21,6 +20,9 @@ public:
 
 Q_SIGNALS:
     void Signal_UpdateTestInfo(const QVariant &);
+    void Signale_RunAllTest();
+public Q_SLOTS:
+    void Slot_RunAllTest();
 
 private:
     Q_DISABLE_COPY_MOVE(CTestModule)

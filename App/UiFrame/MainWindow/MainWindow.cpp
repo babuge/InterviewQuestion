@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 #include "CTestListView.h"
-#include "CommonGtest,h"
 #include "ui_MainWindow.h"
 
 #include <QDebug>
@@ -83,11 +82,5 @@ void MainWindow::RegisterSignal(const QObject *sender, const char *signal)
 
 void MainWindow::Slot_ClickedTestBtn()
 {
-    int ret = RUN_ALL_TESTS();
-    if (ret == 0) {
-        qDebug() << "RUN_ALL_TESTS success!";
-    }
-    else {
-        qDebug() << "RUN_ALL_TESTS fail!";
-    }
+    emit this->Signale_RunAllTest();
 }

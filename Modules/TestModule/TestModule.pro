@@ -1,7 +1,7 @@
 QT -= gui
 
 TEMPLATE = lib
-DEFINES += CTESTMODULE_LIBRARY
+DEFINES += TESTMODULE_LIBRARY
 
 CONFIG += c++11
 
@@ -20,7 +20,6 @@ HEADERS += \
     CTestEventListener.h \
     CTestModule.h \
     CTestModule_global.h \
-    CommonGtest.h \
     CommonTestModule.h \
     TestInterviewQuestion/CTestInterviewQuestion.h
 
@@ -50,9 +49,7 @@ LIBS += -L$${OUTLIB}/ -lInterviewQuestion
 INCLUDEPATH += $${ThridParty}/GTest-1.8.x/include
 INCLUDEPATH += $${CommonDir}/InterviewQuestion
 
-$$headersLibCopyFunc($${CommonDir},"TestModule", \
-    $${Modules}/TestModule/CommonGtest.h \
-    $${Modules}/TestModule/CTestModule.h \
+$$headersLibCopyFunc($${CommonDir},"TestModule", $${Modules}/TestModule/CTestModule.h \
     $${Modules}/TestModule/CommonTestModule.h \
     $${Modules}/TestModule/CTestModule_global.h)
 message(TESTMODULE_LIBRARY)
