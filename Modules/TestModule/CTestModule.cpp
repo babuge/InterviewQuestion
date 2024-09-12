@@ -13,6 +13,7 @@ public:
 private:
     CTestModule *q_ptr;
     CTestEventListener *m_pListener;
+    CustomTestInfo m_info;
 };
 
 CTestModulePrivate::CTestModulePrivate(CTestModule *qPtr)
@@ -56,12 +57,11 @@ void CTestModule::SetUp()
     if (d->m_pListener != nullptr) {
         ::testing::UnitTest::GetInstance()->listeners().Append(d->m_pListener);
     }
-    CustomTestInfo info;
-    info.isFold    = false;
-    info.date      = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
-    info.itemName  = "TestModule";
-    info.indexName = "SetUp";
-    emit this->Signal_UpdateTestInfo(QVariant::fromValue<CustomTestInfo>(info));
+    d->m_info.isFold    = false;
+    d->m_info.date      = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+    d->m_info.itemName  = "TestModule";
+    d->m_info.indexName = "SetUp";
+    emit this->Signal_UpdateTestInfo(QVariant::fromValue<CustomTestInfo>(d->m_info));
 }
 
 void CTestModule::TearDown()
@@ -72,12 +72,11 @@ void CTestModule::TearDown()
         ::testing::UnitTest::GetInstance()->listeners().Release(d->m_pListener);
     }
 
-    CustomTestInfo info;
-    info.isFold    = false;
-    info.date      = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
-    info.itemName  = "TestModule";
-    info.indexName = "TearDown";
-    emit this->Signal_UpdateTestInfo(QVariant::fromValue<CustomTestInfo>(info));
+    d->m_info.isFold    = false;
+    d->m_info.date      = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+    d->m_info.itemName  = "TestModule";
+    d->m_info.indexName = "TearDown";
+    emit this->Signal_UpdateTestInfo(QVariant::fromValue<CustomTestInfo>(d->m_info));
 }
 
 void CTestModule::Slot_RunAllTest()

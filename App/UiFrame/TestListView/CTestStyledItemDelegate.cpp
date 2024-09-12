@@ -76,13 +76,13 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
         }
         // 鼠标悬停或者选中时改变背景色
         if (option.state.testFlag(QStyle::State_MouseOver)) {
-            painter->setPen(QPen(QColor("#000000")));
+            painter->setPen(QPen(QColor("#333333")));
         }
         else if (option.state.testFlag(QStyle::State_Selected)) {
-            painter->setPen(QPen(QColor("#000000")));
+            painter->setPen(QPen(QColor("#333333")));
         }
         else {
-            painter->setPen(QPen(QColor("#000000")));
+            painter->setPen(QPen(QColor("#333333")));
         }
         painter->drawPath(rowPath);  // 绘制行线
         for (int i = 1; i < rowLineNum; i++) {
@@ -156,9 +156,4 @@ QSize CTestStyledItemDelegate::sizeHint(const QStyleOptionViewItem &option,
     else {
         return QSize(option.rect.width(), (itemData.rowName.length() + 3) * 40);
     }
-}
-
-void CTestStyledItemDelegate::Slots_BtnClicked(QPoint /*mousePoint*/, const QModelIndex & /*index*/)
-{
-    //
 }
