@@ -191,8 +191,8 @@ TEST_F(CTestInterviewQuestion, GetSecond)
 {
     m_Info.indexName = "GetSecond";
     m_Info.date      = GetCurDateTime();
-    m_Info.rowName << QString("runing case");
-    m_Info.rowData << QString("all Part");
+    m_Info.rowName << QString("runing case::GetSecond");
+    m_Info.rowData << QString("获取数组中第二大的值，只循环一次");
     UpdateInfo();
     struct ResultItem
     {
@@ -201,14 +201,14 @@ TEST_F(CTestInterviewQuestion, GetSecond)
     };
 
     auto IsSecond = [=](const ResultItem &result) {
-        QString str = ListToString(result.Input.in) + ",ret:" + QString::number(result.retReal)
-                      + ",Expected:" + QString::number(result.Input.result);
+        QString str = ListToString(result.Input.in) + " ,ret: " + QString::number(result.retReal)
+                      + " ,Expected: " + QString::number(result.Input.result);
         if (result.retReal == result.Input.result) {
-            str = "SuccessResult: in:" + str;
+            str = "SuccessResult: in: " + str;
             return testing::AssertionSuccess() << str.toStdString();
         }
         else {
-            str = "FaulureResult: in:" + str;
+            str = "FaulureResult: in: " + str;
             return testing::AssertionFailure() << str.toStdString();
         }
     };
@@ -234,8 +234,8 @@ TEST_F(CTestInterviewQuestion, FindSubSetIndex)
 {
     m_Info.indexName = "FindSubSetIndex";
     m_Info.date      = GetCurDateTime();
-    m_Info.rowName << QString("runing case");
-    m_Info.rowData << QString("all Part");
+    m_Info.rowName << QString("runing case::FindSubSetIndex");
+    m_Info.rowData << QString("获取数组a的子集b第一次出现在a的位置");
     UpdateInfo();
 
     struct ResultItem
@@ -245,16 +245,16 @@ TEST_F(CTestInterviewQuestion, FindSubSetIndex)
     };
 
     auto IsFindSubSetIndex = [=](const ResultItem &result) {
-        QString str = "firstIn:" + ListToString(result.Input.first)
-                      + "secondIn:" + ListToString(result.Input.second)
-                      + ",ret:" + QString::number(result.retReal)
-                      + ",Expected:" + QString::number(result.Input.result);
+        QString str = "firstIn: " + ListToString(result.Input.first)
+                      + " secondIn: " + ListToString(result.Input.second)
+                      + " ,ret: " + QString::number(result.retReal)
+                      + " ,Expected: " + QString::number(result.Input.result);
         if (result.retReal == result.Input.result) {
-            str = "SuccessResult: in:" + str;
+            str = "SuccessResult: in: " + str;
             return testing::AssertionSuccess() << str.toStdString();
         }
         else {
-            str = "FaulureResult: in:" + str;
+            str = "FaulureResult: in: " + str;
             return testing::AssertionFailure() << str.toStdString();
         }
     };
@@ -280,8 +280,8 @@ TEST_F(CTestInterviewQuestion, CycleString)
 {
     m_Info.indexName = "CycleString";
     m_Info.date      = GetCurDateTime();
-    m_Info.rowName << QString("runing case");
-    m_Info.rowData << QString("all Part");
+    m_Info.rowName << QString("runing case::CycleString");
+    m_Info.rowData << QString("获取字符串循环n次后的值，如‘abcdef’循环2次为‘cdefab’");
     UpdateInfo();
     struct ResultItem
     {
@@ -290,23 +290,24 @@ TEST_F(CTestInterviewQuestion, CycleString)
     };
 
     auto IsCycleString = [=](const ResultItem &result) {
-        QString str = "firstIn:" + QString::fromStdString(result.Input.first)
-                      + "secondIn:" + QString::number(result.Input.second)
-                      + ",ret:" + QString::fromStdString(result.retReal)
-                      + ",Expected:" + QString::fromStdString(result.Input.result);
+        QString str = "firstIn: " + QString::fromStdString(result.Input.first)
+                      + " secondIn: " + QString::number(result.Input.second)
+                      + " ,ret: " + QString::fromStdString(result.retReal)
+                      + " ,Expected: " + QString::fromStdString(result.Input.result);
         if (result.retReal == result.Input.result) {
-            str = "SuccessResult: in:" + str;
+            str = "SuccessResult: in: " + str;
             return testing::AssertionSuccess() << str.toStdString();
         }
         else {
-            str = "FaulureResult: in:" + str;
+            str = "FaulureResult: in: " + str;
             return testing::AssertionFailure() << str.toStdString();
         }
     };
 
     for (int i = 0; i < m_Case3Data.size(); ++i) {
         ResultItem resultItem = { m_Case3Data.at(i), "" };
-        resultItem.retReal    = p.CycleString(resultItem.Input.first, resultItem.Input.second);
+        std::string str_First = resultItem.Input.first;
+        resultItem.retReal    = p.CycleString(str_First, resultItem.Input.second);
         ::testing::AssertionResult AssertResult(IsCycleString(resultItem));
         EXPECT_TRUE(AssertResult);
 
