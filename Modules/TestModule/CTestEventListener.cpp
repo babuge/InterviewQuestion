@@ -13,11 +13,11 @@
  *
  * FileName :           CTestEventListener.cpp
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -88,6 +88,4 @@ void CTestEventListener::OnTestCaseEnd(const TestCase &test_case)
 void CTestEventListener::OnEnvironmentsTearDownStart(const UnitTest & /*unit_test*/)
 {
     qDebug() << "OnEnvironmentsTearDownStart";
-}
-t";
 }

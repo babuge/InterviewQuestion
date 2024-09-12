@@ -13,11 +13,11 @@
  *
  * FileName :           CTestStandardItemModel.cpp
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -48,6 +48,4 @@ bool CTestStandardItemModel::setData(const QModelIndex &index, const QVariant &v
         return true;
     }
     return QStandardItemModel::setData(index, value, role);
-}
-e);
 }

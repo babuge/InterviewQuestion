@@ -13,11 +13,11 @@
  *
  * FileName :           CTestStandardItemModel.h
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -33,6 +33,4 @@ public:
     virtual ~CTestStandardItemModel();
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-};
-e;
 };

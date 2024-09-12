@@ -13,11 +13,11 @@
  *
  * FileName :           CTestEventListener.h
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -40,6 +40,4 @@ public:
     void OnTestEnd(const TestInfo &test_info) override;
     void OnTestCaseEnd(const TestCase &test_case) override;
     void OnEnvironmentsTearDownStart(const UnitTest &unit_test) override;
-};
-e;
 };

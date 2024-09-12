@@ -13,11 +13,11 @@
  *
  * FileName :           MainWindow.h
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -54,6 +54,4 @@ private:
 private:
     Q_DECLARE_PRIVATE(MainWindow);
     MainWindowPrivate *d_ptr;
-};
-r;
 };

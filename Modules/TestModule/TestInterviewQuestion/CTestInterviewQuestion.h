@@ -13,11 +13,11 @@
  *
  * FileName :           CTestInterviewQuestion.h
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -70,6 +70,4 @@ protected:
     QVector<StruInVctOutIntItem> m_Case1Data;
     QVector<StruInVctVctOutIntItem> m_Case2Data;
     QVector<StruInStringIntOutStringItem> m_Case3Data;
-};
-a;
 };

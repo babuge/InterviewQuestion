@@ -13,11 +13,11 @@
  *
  * FileName :           MainWindow.cpp
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -107,6 +107,4 @@ void MainWindow::RegisterSignal(const QObject *sender, const char *signal)
 void MainWindow::Slot_ClickedTestBtn()
 {
     emit this->Signale_RunAllTest();
-}
-();
 }

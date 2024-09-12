@@ -13,11 +13,11 @@
  *
  * FileName :           CTestListView.cpp
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -85,6 +85,4 @@ void CTestListView::Slot_UpdateTestInfo(const QVariant &data)
         }
         m_pModel->setData(index, QBrush(Qt::lightGray), Qt::BackgroundRole);
     }
-}
-  }
 }

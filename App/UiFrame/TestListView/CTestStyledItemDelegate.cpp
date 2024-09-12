@@ -13,11 +13,11 @@
  *
  * FileName :           CTestStyledItemDelegate.cpp
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -180,6 +180,4 @@ QSize CTestStyledItemDelegate::sizeHint(const QStyleOptionViewItem &option,
     else {
         return QSize(option.rect.width(), (itemData.rowName.length() + 3) * 40);
     }
-}
-  }
 }

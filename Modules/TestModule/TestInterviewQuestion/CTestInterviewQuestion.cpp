@@ -13,11 +13,11 @@
  *
  * FileName :           CTestInterviewQuestion.cpp
  * FileIdentification :
- * Abstract :           
+ * Abstract :
  * CurrentVersion :     v0.1.0
  * author:              babuge
  * CompletionDate :
- * AlternateVersion :   
+ * AlternateVersion :
  * authorship :         babuge
  * CompletionDate :     2024/09/12
  ******************************************************************************/
@@ -320,6 +320,4 @@ TEST_F(CTestInterviewQuestion, CycleString)
     m_Info.rowName << QString("runing end");
     m_Info.rowData << QString("all case");
     UpdateInfo();
-}
-();
 }
