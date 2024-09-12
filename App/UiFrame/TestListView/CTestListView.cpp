@@ -29,7 +29,9 @@ void CTestListView::init()
         return;
     }
     setViewMode(QListView::ListMode);
-    setSelectionMode(QAbstractItemView::NoSelection);
+    setSelectionMode(QAbstractItemView::SingleSelection);
+    setEditTriggers(QAbstractItemView::NoEditTriggers);
+    setSpacing(5);
     m_pModel->setColumnCount(3);
     setModel(m_pModel);
     setItemDelegate(m_pDelegate);

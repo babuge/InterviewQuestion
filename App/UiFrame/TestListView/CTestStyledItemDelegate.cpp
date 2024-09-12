@@ -4,6 +4,8 @@
 
 CTestStyledItemDelegate::CTestStyledItemDelegate(QObject *parent)
     : QStyledItemDelegate{ parent }
+    , m_borderRadius(4)
+    , m_btnWidth(126)
 {
 }
 
@@ -142,5 +144,21 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
         painter->restore();
     }
 }
+QSize CTestStyledItemDelegate::sizeHint(const QStyleOptionViewItem &option,
+                                        const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+    QVariant var            = index.data(Qt::UserRole + 1);
+    CustomTestInfo itemData = var.value<CustomTestInfo>();
+    if (itemData.isFold) {
+        return QSize(option.rect.width(), 3 * 40);
+    }
+    else {
+        return QSize(option.rect.width(), (itemData.rowName.length() + 3) * 40);
+    }
+}
 
-void CTestStyledItemDelegate::on_but_clicked(QPoint mousePoint, const QModelIndex &index) {}
+void CTestStyledItemDelegate::Slots_BtnClicked(QPoint /*mousePoint*/, const QModelIndex & /*index*/)
+{
+    //
+}

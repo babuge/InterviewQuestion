@@ -7,6 +7,7 @@
 
 class CTestStyledItemDelegate : public QStyledItemDelegate
 {
+    Q_OBJECT
 public:
     explicit CTestStyledItemDelegate(QObject *parent = nullptr);
     void paint(QPainter *painter,
@@ -25,8 +26,7 @@ public:
     //                      QAbstractItemModel *model,
     //                      const QModelIndex &index) const override;
 
-    //    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-    //    override;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
     // 设置 Item 矩形区域圆角
     void setBorderRadius(int borderRadius);
@@ -34,7 +34,7 @@ public:
     // 设置按钮大小
     void setButWidth(int btnWidth);
 public slots:
-    void on_but_clicked(QPoint mousePoint, const QModelIndex &index);
+    void Slots_BtnClicked(QPoint mousePoint, const QModelIndex &index);
 
 private:
     int m_borderRadius;
