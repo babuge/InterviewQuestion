@@ -26,6 +26,18 @@
 #include "CommonTestModule.h"
 #include <QPainterPath>
 
+namespace
+{
+const QColor clr_showdow(0xc7, 0xc7, 0xc7);
+const QColor clr_hover(0xc4, 0xf0, 0xff);
+const QColor clr_defalut(0xBC, 0xF2, 0xF5);
+const QColor clr_white(0xFF, 0xFF, 0xFF);
+const QColor clr_selected(0x8f, 0x9a, 0xe6);
+const QColor clr_gray(0xc7, 0xc7, 0xc7);
+const QColor clr_darkgray(0x33, 0x33, 0x33);
+const QColor clr_block(0x0, 0x0, 0x0);
+}  // namespace
+
 CTestStyledItemDelegate::CTestStyledItemDelegate(QObject *parent)
     : QStyledItemDelegate{ parent }
     , m_borderRadius(4)
@@ -50,7 +62,8 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
 {
     if (index.isValid()) {
         painter->save();
-        painter->setRenderHints(QPainter::Antialiasing);
+        // 图形和文本抗锯齿
+        painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
         painter->setFont(QFont("Microsoft YaHei", 10));
         int rowLineNum, rowHeight;
         QVariant var            = index.data(Qt::UserRole + 1);
@@ -59,25 +72,25 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
         // Item 矩形区域
         QRectF rect = QRectF(option.rect);
         // 绘制Item阴影
-        painter->setPen(QPen(QColor("#c7c7c7")));
-        painter->setBrush(QColor("#c7c7c7"));
+        painter->setPen(QPen(clr_showdow));
+        painter->setBrush(clr_showdow);
         painter->drawRoundedRect(QRectF(rect.x() + 4, rect.y() + 4, rect.width(), rect.height()),
                                  m_borderRadius,
                                  m_borderRadius);
         // 鼠标悬停或者选中时改变背景色
         if (option.state.testFlag(QStyle::State_MouseOver)) {
-            painter->setPen(QPen(QColor("#c4f0ff")));
-            painter->setBrush(QColor("#c4f0ff"));
+            painter->setPen(QPen(clr_hover));
+            painter->setBrush(clr_hover);
             painter->drawRoundedRect(rect, m_borderRadius, m_borderRadius);
         }
         else if (option.state.testFlag(QStyle::State_Selected)) {
-            painter->setPen(QPen(QColor("#e4f0ff")));
-            painter->setBrush(QColor("#e4f0ff"));
+            painter->setPen(QPen(clr_selected));
+            painter->setBrush(clr_selected);
             painter->drawRoundedRect(rect, m_borderRadius, m_borderRadius);
         }
         else {
-            painter->setPen(QPen(QColor("#BCF2F5")));
-            painter->setBrush(QColor("#BCF2F5"));
+            painter->setPen(QPen(clr_defalut));
+            painter->setBrush(clr_defalut);
             painter->drawRoundedRect(rect, m_borderRadius, m_borderRadius);
         }
         QPainterPath rowPath;
@@ -98,16 +111,8 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
             rowPath.moveTo(QPointF(rect.x(), rect.y() + rowHeight));
             rowPath.lineTo(QPointF(rect.width() + 5, rect.y() + rowHeight));
         }
-        // 鼠标悬停或者选中时改变背景色
-        if (option.state.testFlag(QStyle::State_MouseOver)) {
-            painter->setPen(QPen(QColor("#333333")));
-        }
-        else if (option.state.testFlag(QStyle::State_Selected)) {
-            painter->setPen(QPen(QColor("#333333")));
-        }
-        else {
-            painter->setPen(QPen(QColor("#333333")));
-        }
+
+        painter->setPen(QPen(clr_darkgray));
         painter->drawPath(rowPath);  // 绘制行线
         for (int i = 1; i < rowLineNum; i++) {
 
@@ -141,8 +146,8 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
                                  rect.y() + rowHeight * rowLineNum + (butHeight + 5) * i + 7,
                                  50,
                                  butHeight);
-            painter->setPen(QPen(QColor("#c7c7c7")));
-            painter->setBrush(QColor("#c7c7c7"));
+            painter->setPen(QPen(clr_gray));
+            painter->setBrush(clr_gray);
             painter->drawRoundedRect(butShadowRect, m_borderRadius, m_borderRadius);
 
             // 绘制按钮
@@ -152,17 +157,17 @@ void CTestStyledItemDelegate::paint(QPainter *painter,
                            butHeight);
             // 根据按钮选中状态绘制按钮
             if (itemData.btnSelected[i]) {
-                painter->setPen(QPen(QColor("#8f9ae6")));
-                painter->setBrush(QColor("#8f9ae6"));
+                painter->setPen(QPen(clr_selected));
+                painter->setBrush(clr_selected);
             }
             else {
-                painter->setPen(QPen(QColor("#FFFFFF")));
-                painter->setBrush(QColor("#FFFFFF"));
+                painter->setPen(QPen(clr_white));
+                painter->setBrush(clr_white);
             }
             painter->drawRoundedRect(butRect, m_borderRadius, m_borderRadius);
 
             // 添加按钮文字
-            painter->setPen(QPen(QColor("#000000")));
+            painter->setPen(QPen(clr_block));
             painter->drawText(butRect, Qt::AlignCenter, itemData.btnNames.value(i));
         }
         painter->restore();

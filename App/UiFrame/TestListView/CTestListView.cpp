@@ -55,6 +55,7 @@ void CTestListView::init()
     setViewMode(QListView::ListMode);
     setSelectionMode(QAbstractItemView::SingleSelection);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     setSpacing(5);
     m_pModel->setColumnCount(3);
     setModel(m_pModel);
@@ -80,9 +81,9 @@ void CTestListView::Slot_UpdateTestInfo(const QVariant &data)
     m_pModel->insertRow(count, list);
     for (int i = 0; i < list.size(); ++i) {
         QModelIndex index = m_pModel->index(count, i);
+        m_pModel->setData(index, QBrush(Qt::lightGray), Qt::BackgroundRole);
         if (i == 0) {
             m_pModel->setData(index, data, Qt::UserRole + 1);
         }
-        m_pModel->setData(index, QBrush(Qt::lightGray), Qt::BackgroundRole);
     }
 }
