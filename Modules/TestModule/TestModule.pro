@@ -46,7 +46,7 @@ if(win32){
 LIBS += -L$${OUTLIB}/ -lInterviewQuestion
 
 
-INCLUDEPATH += $${ThridParty}/GTest-1.8.x/include
+INCLUDEPATH += $${ThirdParty}/GTest-1.8.x/include
 INCLUDEPATH += $${CommonDir}/InterviewQuestion
 
 $$headersLibCopyFunc($${CommonDir},"TestModule", $${Modules}/TestModule/CTestModule.h \

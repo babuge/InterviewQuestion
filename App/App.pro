@@ -23,7 +23,7 @@ SOURCES += main.cpp
 #    LIBS += -L$${OUTLIB}/ -lgtest
 #}
 
-INCLUDEPATH += $${ThridParty}/GTest-1.8.x/include
+INCLUDEPATH += $${ThirdParty}/GTest-1.8.x/include
 INCLUDEPATH += $${CommonDir}/TestModule
 
 DEPENDPATH += $${OUTLIB}
