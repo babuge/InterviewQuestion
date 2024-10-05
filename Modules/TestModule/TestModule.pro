@@ -32,14 +32,14 @@ unix {
 # gtest
 if(win32){
     if(mingw){
-        $$headersLibCopyFunc($${OUTLIB},"", $${ProjectRootDir}/3rdparty/GTest-1.8.x/lib/mingw/libgtest.dll)
+        $$headersLibCopyFunc($${OUTLIB},"", $${ThirdParty}/GTest-1.8.x/lib/mingw/libgtest.dll)
         LIBS += -L$${OUTLIB}/ -lgtest
     } else {
-        $$headersLibCopyFunc($${OUTLIB},"", $${ProjectRootDir}/3rdparty/GTest-1.8.x/lib/win/libgtest.dll)
+        $$headersLibCopyFunc($${OUTLIB},"", $${ThirdParty}/GTest-1.8.x/lib/win/libgtest.dll)
         LIBS += $${OUTLIB}/libgtest.dll
     }
 } esle {
-    $$headersLibCopyFunc($${OUTLIB},"", $${ProjectRootDir}/3rdparty/GTest-1.8.x/lib/linux/libgtest.so)
+    $$headersLibCopyFunc($${OUTLIB},"", $${ThirdParty}/GTest-1.8.x/lib/linux/libgtest.so)
     LIBS += -L$${OUTLIB}/ -lgtest
 }
 
